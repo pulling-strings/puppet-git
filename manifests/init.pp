@@ -11,9 +11,9 @@
 # Sample Usage:
 #
 # [Remember: No empty lines between comments and class definition]
-class git($user,$email) {
+class git() {
  
   include git::install 
-  class { "git::configure":  git_user => $user, git_email => $email}
+  class { "git::configure":  git_user => $scm_user, git_email => $scm_email}
 
 }
