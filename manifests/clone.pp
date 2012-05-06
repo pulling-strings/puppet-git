@@ -5,7 +5,7 @@ define git::clone($url,$dst,$owner) {
   exec{"clone $name":
     command => "git clone $url $to",
     cwd     => dirname($dst),
-    user    => 'root',
+    user    => "root",
     path    => ['/usr/bin/'],
     unless  => "test -d $dst",
     notify  => Exec["chown $name"],
@@ -14,7 +14,7 @@ define git::clone($url,$dst,$owner) {
 
   exec{"chown $name":
     command       => "chown $owner $dst -R",
-    user          => 'root',
+    user          => "root",
     path    => ['/bin/'],
     refreshonly   => true
   }
