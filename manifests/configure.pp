@@ -4,10 +4,11 @@ class git::configure($git_user="", $git_email="") {
 
   define git_config( $value) {
     exec {"set git $name $value":
-      command	=> "git config --global $name $value",
-      path        => ["/usr/bin", "/usr/sbin"],
-      user    	=> "root",
-      require  => Package['git-core']
+      command => "git config --global $name $value",
+      path    => ["/usr/bin", "/usr/sbin"],
+      user    => "root",
+      require => Package['git-core'],
+      unless  => "git config --get $name"
     }
   }
 
