@@ -21,7 +21,7 @@ define git::clone($url,$dst,$owner,$timeout=360) {
   }
 
   exec{"chown ${name}":
-    command     => "chown ${owner} ${dst} -R",
+    command     => "chown ${owner}:${owner} ${dst} -R",
     user        => root,
     path        => ['/bin/'],
     refreshonly => true

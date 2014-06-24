@@ -1,20 +1,24 @@
-class git::configure($git_user="", $git_email="") {
+class git::configure($scm_user=false, $scm_email=false) {
 
-  $home = "/home/$username"
+  validate_string($scm_user)
+  validate_string($scm_email)
+  validate_string($git::user)
+
+  $home = "/home/${git::user}"
 
   define git_config($value) {
     exec {"set git ${name} ${value}":
       command     => "git config --global $name $value",
       path        => ["/usr/bin", "/usr/sbin"],
       user        => "root",
-      environment => "HOME=$home",
+      environment => "HOME=${git::configure::home}",
       require     => Package['git-core'],
       unless      => "git config --get $name"
     }
   }
 
-  git_config{'user.name': value => $git_user}
-  git_config{ 'user.email': value => $git_email}
+  git_config{'user.name': value => $scm_user}
+  git_config{ 'user.email': value => $scm_email}
   git_config{ 'core.editor': value => 'vim'}
   git_config{ 'init.templatedir': value => '~/.git_template' }
   git_config {'alias.sub-add': value => "'submodule add'"}
@@ -26,6 +30,6 @@ class git::configure($git_user="", $git_email="") {
   git::clone {'git_template':
     url   => 'git://github.com/narkisr/git_template.git',
     dst   => "${home}/.git_template",
-    owner => $username
+    owner => $git::user
   }
 }
