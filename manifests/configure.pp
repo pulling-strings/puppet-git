@@ -24,7 +24,7 @@ class git::configure($scm_user=false, $scm_email=false) {
   git_config {'alias.sub-add': value => "'submodule add'"}
   git_config {'alias.sub-up': value => "'submodule update --init'"}
   git_config {'alias.cm': value => "'commit -m'"}
-  git_config {'alias.for-pull': value => "'submodule foreach git pull'"}
+  git_config {'alias.for-pull': value => "'submodule foreach git pull origin master'"}
   git_config {'http.sslVerify': value => 'false'}
 
   git::clone {'git_template':
