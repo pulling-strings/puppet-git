@@ -9,10 +9,10 @@ class git::configure($scm_user=false, $scm_email=false) {
   define git_config($value) {
     exec {"set git ${name} ${value}":
       command     => "git config --global $name $value",
-      path        => ["/usr/bin", "/usr/sbin"],
-      user        => "root",
+      path        => $::git::params::path,
+      user        => 'root',
       environment => "HOME=${git::configure::home}",
-      require     => Package['git-core'],
+      require     => Package[$::git::params::package],
       unless      => "git config --get $name"
     }
   }

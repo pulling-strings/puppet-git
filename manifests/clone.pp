@@ -3,27 +3,23 @@ define git::clone($url,$dst,$owner,$timeout=360) {
 
   $to = basename($dst)
 
-  if(!defined(Package['git-core'])){
-    package{'git-core':
-      ensure  => present
-    }
-  }
+  ensure_resource('package',$::git::params::package,{'ensure' => 'present'})
 
   exec{"clone ${name}":
     command => "git clone ${url} ${to}",
     cwd     => dirname($dst),
     user    => root,
-    path    => ['/usr/bin/'],
-    unless  => "/usr/bin/test -d ${dst}/.git",
+    path    => $::git::params::path,
+    unless  => "${::git::params::test} -d ${dst}/.git",
     notify  => Exec["chown ${name}"],
-    require => Package['git-core'],
+    require => Package[$::git::params::package],
     timeout => $timeout
   }
 
   exec{"chown ${name}":
-    command     => "chown ${owner}:${owner} ${dst} -R",
+    command     => "chown -R ${owner}:${owner} ${dst}",
     user        => root,
-    path        => ['/bin/'],
+    path        => $::git::params::path,
     refreshonly => true
   }
 }
