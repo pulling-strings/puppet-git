@@ -1,10 +1,16 @@
-class git::configure($scm_user=false, $scm_email=false) {
+# Configuring local git, user is the OS user
+# Scm user is the scm usrname
+class git::configure(
+  $scm_user=false,
+  $scm_email=false,
+  $user = false
+) {
 
   validate_string($scm_user)
   validate_string($scm_email)
-  validate_string($git::user)
+  validate_string($user)
 
-  $home = "/home/${git::user}"
+  $home = "/home/${user}"
 
   define git_config($value) {
     exec {"set git ${name} ${value}":
@@ -30,6 +36,6 @@ class git::configure($scm_user=false, $scm_email=false) {
   git::clone {'git_template':
     url   => 'git://github.com/narkisr/git_template.git',
     dst   => "${home}/.git_template",
-    owner => $git::user
+    owner => $user
   }
 }

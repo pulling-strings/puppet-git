@@ -1,5 +1,5 @@
 # Git managment module
-class git($scm_user=false, $scm_email=false, $user=false) {
+class git {
 
   include git::params
 
