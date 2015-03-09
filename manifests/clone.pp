@@ -1,5 +1,10 @@
 # clone git repos
-define git::clone($url,$dst,$owner,$timeout=360) {
+define git::clone(
+  $url,
+  $dst,
+  $owner,
+  $unless = "${::git::params::test} -d ${dst}/.git",
+  $timeout=360) {
 
   $to = basename($dst)
 
@@ -10,7 +15,7 @@ define git::clone($url,$dst,$owner,$timeout=360) {
     cwd     => dirname($dst),
     user    => root,
     path    => $::git::params::path,
-    unless  => "${::git::params::test} -d ${dst}/.git",
+    unless  => $unless,
     notify  => Exec["chown ${name}"],
     require => Package[$::git::params::package],
     timeout => $timeout
