@@ -2,7 +2,7 @@
 class git::params {
   case $::osfamily {
     'Debian': {
-      $package = 'git-core'
+      $package = 'git'
       $path = ['/usr/bin/', '/bin']
       $bin= '/usr/bin/git'
       $test = '/usr/bin/test'
