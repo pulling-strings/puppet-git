@@ -12,24 +12,13 @@ class git::configure(
 
   $home = "/home/${user}"
 
-  define git_config($value) {
-    exec {"set git ${name} ${value}":
-      command     => "git config --global ${name} ${value}",
-      path        => $::git::params::path,
-      user        => 'root',
-      environment => "HOME=${git::configure::home}",
-      require     => Package[$::git::params::package],
-      unless      => "git config --get ${name}"
-    }
-  }
-
-  git_config{'user.name': value => $scm_user}
-  git_config{ 'user.email': value => $scm_email}
-  git_config{ 'core.editor': value => 'vim'}
-  git_config {'alias.sub-add': value => "'submodule add'"}
-  git_config {'alias.sub-up': value => "'submodule update --init'"}
-  git_config {'alias.cm': value => "'commit -m'"}
-  git_config {'alias.for-pull': value => "'submodule foreach git pull origin master'"}
-  git_config {'alias.for-master': value => "'submodule foreach git checkout master'"}
-  git_config {'http.sslVerify': value => false}
+  git::option{'user.name': value => $scm_user}
+  git::option{ 'user.email': value => $scm_email}
+  git::option{ 'core.editor': value => 'vim'}
+  git::option {'alias.sub-add': value => "'submodule add'"}
+  git::option {'alias.sub-up': value => "'submodule update --init'"}
+  git::option {'alias.cm': value => "'commit -m'"}
+  git::option {'alias.for-pull': value => "'submodule foreach git pull origin master'"}
+  git::option {'alias.for-master': value => "'submodule foreach git checkout master'"}
+  git::option {'http.sslVerify': value => false}
 }
