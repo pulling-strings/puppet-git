@@ -1,0 +1,33 @@
+{
+  "name": "puppet-git",
+  "version": "0.2.0",
+  "author": "Ronen Narkis",
+  "summary": "Module for setting up programming languages",
+  "license": "Apache-2.0",
+  "source": "https://github.com/pulling-strings/puppet-git",
+  "project_page": "https://github.com/pulling-strings/puppet-git",
+  "issues_url": "https://github.com/pulling-strings/puppet-git",
+  "dependencies": [
+  ],
+  "data_provider": null,
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "9.0"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.0.0"
+    }
+  ]
+}
