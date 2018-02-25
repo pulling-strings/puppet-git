@@ -2,7 +2,7 @@
   "name": "puppet-git",
   "version": "0.2.0",
   "author": "Ronen Narkis",
-  "summary": "Module for setting up programming languages",
+  "summary": "Module for setting up git",
   "license": "Apache-2.0",
   "source": "https://github.com/pulling-strings/puppet-git",
   "project_page": "https://github.com/pulling-strings/puppet-git",
